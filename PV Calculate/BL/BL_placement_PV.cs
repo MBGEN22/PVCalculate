@@ -20,6 +20,72 @@ namespace PV_Calculate.BL
             DAL.Close();
             return Dt;
         }
+        public DataTable get_liste_centrale()
+        {
+            DAL.DAL DAL = new DAL.DAL();
+            DataTable Dt = new DataTable();
+            Dt = DAL.SelectData("get_liste_centrale", null);
+            DAL.Close();
+            return Dt;
+        }
+        public DataTable get_technique_tb()
+        {
+            DAL.DAL DAL = new DAL.DAL();
+            DataTable Dt = new DataTable();
+            Dt = DAL.SelectData("get_technique_tb", null);
+            DAL.Close();
+            return Dt;
+        }
+        public void InsertParametresTechniques(
+            float ChargeElementaire,
+            float ConstanteBoltzmann,
+            float TempReference,
+            float IrradianceReference,
+            int NbCellulesSerie,
+            float Isc,
+            float Voc,
+            float Impp,
+            float Vmpp,
+            float Pmp,
+            float CoeffTemperature,
+            float ResistanceSerie,
+            float ResistanceParallele,
+            float FacteurIdealite,
+            int NbPanneauxSerie,
+            int NbChainesParallele,
+            float NOCT
+)
+        {
+            var daoo = new DAL.DAL(); // تأكد أن كائن DAL يحتوي على sqlConnection مُهيّأ
+            using (daoo.sqlConnection)
+            {
+                daoo.sqlConnection.Open();
+                using (SqlCommand cmd = new SqlCommand("InsertParametresTechniques", daoo.sqlConnection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@ChargeElementaire", ChargeElementaire);
+                    cmd.Parameters.AddWithValue("@ConstanteBoltzmann", ConstanteBoltzmann);
+                    cmd.Parameters.AddWithValue("@TempReference", TempReference);
+                    cmd.Parameters.AddWithValue("@IrradianceReference", IrradianceReference);
+                    cmd.Parameters.AddWithValue("@NbCellulesSerie", NbCellulesSerie);
+                    cmd.Parameters.AddWithValue("@Isc", Isc);
+                    cmd.Parameters.AddWithValue("@Voc", Voc);
+                    cmd.Parameters.AddWithValue("@Impp", Impp);
+                    cmd.Parameters.AddWithValue("@Vmpp", Vmpp);
+                    cmd.Parameters.AddWithValue("@Pmp", Pmp);
+                    cmd.Parameters.AddWithValue("@CoeffTemperature", CoeffTemperature);
+                    cmd.Parameters.AddWithValue("@ResistanceSerie", ResistanceSerie);
+                    cmd.Parameters.AddWithValue("@ResistanceParallele", ResistanceParallele);
+                    cmd.Parameters.AddWithValue("@FacteurIdealite", FacteurIdealite);
+                    cmd.Parameters.AddWithValue("@NbPanneauxSerie", NbPanneauxSerie);
+                    cmd.Parameters.AddWithValue("@NbChainesParallele", NbChainesParallele);
+                    cmd.Parameters.AddWithValue("@NOCT", NOCT);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
         public void INSERT_PLACEMENT(
             string NAME,
@@ -48,7 +114,6 @@ namespace PV_Calculate.BL
                 }
             }
         }
-
         public bool DELETE_PLACEMENT_BY_COORDS(double latitude, double longitude)
         {
             daoo = new DAL.DAL();
@@ -63,6 +128,23 @@ namespace PV_Calculate.BL
                 rowsAffected = cmd.ExecuteNonQuery();
             }
             return rowsAffected > 0; // true إذا حذفنا على الأقل سجل واحد
+        }
+        public void delete_technique(
+            int para_id
+        )
+        {
+            daoo = new DAL.DAL();
+            using (daoo.sqlConnection)
+            {
+                daoo.sqlConnection.Open();
+                using (SqlCommand cmd = new SqlCommand("delete_technique", daoo.sqlConnection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@para_id", para_id); 
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
     }

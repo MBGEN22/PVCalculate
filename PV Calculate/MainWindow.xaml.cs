@@ -81,7 +81,13 @@ namespace PV_Calculate
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-           
+
+            var clickedButton = sender as System.Windows.Controls.Button;
+            if (_lastSelectedButton != null)
+                _lastSelectedButton.Style = (System.Windows.Style)FindResource("menuButton");
+            clickedButton.Style = (System.Windows.Style)FindResource("menuButtonSelected");
+            _lastSelectedButton = clickedButton;
+            MainContent.Content = new View.liste_téchnique();
 
         }
 
@@ -126,6 +132,16 @@ namespace PV_Calculate
             clickedButton.Style = (System.Windows.Style)FindResource("menuButtonSelected");
             _lastSelectedButton = clickedButton;
             MainContent.Content = new View.calcule_DB();
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            var clickedButton = sender as System.Windows.Controls.Button;
+            if (_lastSelectedButton != null)
+                _lastSelectedButton.Style = (System.Windows.Style)FindResource("menuButton");
+            clickedButton.Style = (System.Windows.Style)FindResource("menuButtonSelected");
+            _lastSelectedButton = clickedButton;
+            MainContent.Content = new View.liste_centrale();
         }
     }
 }

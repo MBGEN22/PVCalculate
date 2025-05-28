@@ -60,7 +60,7 @@
                     <Button Style="{StaticResource menuButton}" Click="Button_Click_1" >
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="ListBox" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Technique" Style="{StaticResource menuButtonText}" />
+                            <TextBlock Text="liste téchnique" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </Button>
                     <Button Style="{StaticResource menuButton}" Click="maps" >
@@ -75,10 +75,16 @@
                             <TextBlock Text="Caclule dans point" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </Button>
+                    <Button Style="{StaticResource menuButton}" Click="Button_Click_5" >
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="SolarPanelLarge" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Liste centrales" Style="{StaticResource menuButtonText}" />
+                        </StackPanel>
+                    </Button>
                     <Button Style="{StaticResource menuButton}" Click="Button_Click_4" >
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="SolarPowerVariant" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Caclule dans DB" Style="{StaticResource menuButtonText}" />
+                            <TextBlock Text="Caclule Production" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </Button>
                     <Button Style="{StaticResource menuButton}" Click="Button_Click_3" >

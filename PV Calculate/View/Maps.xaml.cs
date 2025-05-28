@@ -132,7 +132,7 @@ namespace PV_Calculate.View
 
                     var image = new Image
                     {
-                        Source = new BitmapImage(new Uri("C:\\Users\\ARC COMPUTER\\Source\\Repos\\PVCalculate\\PV Calculate\\View\\cellule-photovoltaique.png")),
+                        Source = new BitmapImage(new Uri("pack://application:,,,/View/cellule-photovoltaique.png")),
                         Width = 32,
                         Height = 32,
                         ToolTip = reader["NAME"].ToString(),
@@ -237,7 +237,7 @@ namespace PV_Calculate.View
                 // 🔵 نرسم الماركر
                 var image = new Image
                 {
-                    Source = new BitmapImage(new Uri("C:\\Users\\ARC COMPUTER\\Source\\Repos\\PVCalculate\\PV Calculate\\View\\cellule-photovoltaique.png")),
+                    Source = new BitmapImage(new Uri("pack://application:,,,/View/cellule-photovoltaique.png")),
                     Width = 32,
                     Height = 32,
                     ToolTip = $"PV @ {position.Lat:F4}, {position.Lng:F4}",
