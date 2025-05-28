@@ -24,7 +24,10 @@ namespace PV_Calculate.BL
         public void INSERT_PLACEMENT(
             string NAME,
             float Latitude,
-            float Longitude
+            float Longitude,
+            float puissance,
+            int? technique_id,
+            string id_bus
         )
         {
             daoo = new DAL.DAL();
@@ -36,7 +39,11 @@ namespace PV_Calculate.BL
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@NAME", NAME);
                     cmd.Parameters.AddWithValue("@Latitude", Latitude);
-                    cmd.Parameters.AddWithValue("@Longitude", Longitude); 
+                    cmd.Parameters.AddWithValue("@Longitude", Longitude);
+                    cmd.Parameters.AddWithValue("@puissance", puissance);
+                    cmd.Parameters.AddWithValue("@technique_id", (object)technique_id ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@id_bus", (object)id_bus ?? DBNull.Value);
+
                     cmd.ExecuteNonQuery();
                 }
             }

@@ -278,6 +278,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BL\BL_Combo.cs" />
     <Compile Include="BL\BL_placement_PV.cs" />
     <Compile Include="DAL\DAL.cs" />
     <Compile Include="View\Caculate_PV.xaml.cs">

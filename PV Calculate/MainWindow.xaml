@@ -59,8 +59,8 @@
                     </Button>
                     <Button Style="{StaticResource menuButton}" Click="Button_Click_1" >
                         <StackPanel Orientation="Horizontal">
-                            <Icon:PackIconMaterial Kind="ViewDay" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Ray quotidien" Style="{StaticResource menuButtonText}" />
+                            <Icon:PackIconMaterial Kind="ListBox" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Technique" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </Button>
                     <Button Style="{StaticResource menuButton}" Click="maps" >

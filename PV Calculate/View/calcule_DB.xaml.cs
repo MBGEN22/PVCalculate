@@ -75,14 +75,14 @@ namespace PV_Calculate.View
             MainChart.AxisX.Clear();
             MainChart.AxisX.Add(new Axis
             {
-                Title = "Heure",
+                Title = "Heure (H)",
                 Labels = xLabels.ToList()
             });
 
             MainChart.AxisY.Clear();
             MainChart.AxisY.Add(new Axis
             {
-                Title = "Valeur"
+                Title = "Production (W)"
             });
         }
 
@@ -227,7 +227,7 @@ namespace PV_Calculate.View
                 double Voc = Convert.ToDouble(row["Voc"]);
                 double Impp = Convert.ToDouble(row["Impp"]);
                 double Vmpp = Convert.ToDouble(row["Vmpp"]);
-                double Pmp = Convert.ToDouble(row["Pmp"]);
+                double Pmp = Impp* Vmpp ;
                 double Beta_P = Convert.ToDouble(row["CoeffTemperature"]);
                 double Rs = Convert.ToDouble(row["ResistanceSerie"]);
                 double Rsh = Convert.ToDouble(row["ResistanceParallele"]);
@@ -293,7 +293,7 @@ namespace PV_Calculate.View
                     if (double.TryParse(row[col].ToString(), out double val))
                         sum += val;
                 }
-                sumValues.Add(sum);
+                sumValues.Add(sum/1e6);
             }
 
             // إعداد السلسلة
@@ -314,14 +314,14 @@ namespace PV_Calculate.View
             MainChartsum.AxisX.Clear();
             MainChartsum.AxisX.Add(new Axis
             {
-                Title = "Heure",
+                Title = "Heure (H)",
                 Labels = xLabels.ToList()
             });
 
             MainChartsum.AxisY.Clear();
             MainChartsum.AxisY.Add(new Axis
             {
-                Title = "Somme des valeurs"
+                Title = "Production (KW)"
             });
         }
 
