@@ -3,6 +3,7 @@ using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -45,7 +46,7 @@ namespace PV_Calculate.View
         }
         public async Task<MeteoData> GetMeteoData(double latitude, double longitude)
         {
-            string url = $"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m,direct_radiation";
+            string url = $"https://api.open-meteo.com/v1/forecast?latitude={latitude.ToString(CultureInfo.InvariantCulture)}&longitude={longitude.ToString(CultureInfo.InvariantCulture)}&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m,direct_radiation";
 
             using (HttpClient client = new HttpClient())
             {

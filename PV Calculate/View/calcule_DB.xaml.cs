@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -88,7 +89,7 @@ namespace PV_Calculate.View
 
         public async Task<MeteoData> GetMeteoData(double latitude, double longitude)
         {
-            string url = $"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m,direct_radiation";
+            string url = $"https://api.open-meteo.com/v1/forecast?latitude={latitude.ToString(CultureInfo.InvariantCulture)}&longitude={longitude.ToString(CultureInfo.InvariantCulture)}&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m,direct_radiation";
 
             using (HttpClient client = new HttpClient())
             {
@@ -118,7 +119,7 @@ namespace PV_Calculate.View
 
         }
         private List<string> CalculerProduction(
-                int ID ,string Name ,double q, double k, double T_ref, double G_ref, int Ns_cell,
+                int ID ,float PV_Pnom , string Name ,double q, double k, double T_ref, double G_ref, int Ns_cell,
                 double Isc, double Voc, double Impp, double Vmpp, double Pmp,
                 double Beta_P, double Rs, double Rsh, double n, int Ns, int Np,
                 double NOCT,
@@ -155,7 +156,7 @@ namespace PV_Calculate.View
                 double maxP = 0;
                 for (int j = 0; j < N; j++)
                 {
-                    double P = V[j] * I[j];
+                    double P = V[j] * I[j] * PV_Pnom;
                     if (P > maxP)
                         maxP = P;
                 }
@@ -215,6 +216,7 @@ namespace PV_Calculate.View
                 // جلب المعطيات...
                 int ID = Convert.ToInt32(row["ID"]);
                 string NAME = row["NAME"].ToString();
+                float PV_Pnom = float.Parse(row["puissance"].ToString());
                 double latitude = Convert.ToDouble(row["Latitude"]);
                 double longitude = Convert.ToDouble(row["Longitude"]);
                 double q = Convert.ToDouble(row["ChargeElementaire"]);
@@ -242,7 +244,7 @@ namespace PV_Calculate.View
                 List<double> G_array = meteo.Radiation;
                 List<double> Temp_array = meteo.Temperatures;
 
-                List<string> P_max_array = CalculerProduction(ID , NAME, q, k, T_ref, G_ref, Ns_cell,
+                List<string> P_max_array = CalculerProduction(ID , PV_Pnom, NAME, q, k, T_ref, G_ref, Ns_cell,
                                                               Isc, Voc, Impp, Vmpp, Pmp,
                                                               Beta_P, Rs, Rsh, n, Ns, Np, NOCT,
                                                               G_array, Temp_array);

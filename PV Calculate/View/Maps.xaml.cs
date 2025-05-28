@@ -132,7 +132,7 @@ namespace PV_Calculate.View
 
                     var image = new Image
                     {
-                        Source = new BitmapImage(new Uri("C:\\Users\\Informatics\\Desktop\\PV Calculate\\PV Calculate\\View\\cellule-photovoltaique.png")),
+                        Source = new BitmapImage(new Uri("C:\\Users\\ARC COMPUTER\\Source\\Repos\\PVCalculate\\PV Calculate\\View\\cellule-photovoltaique.png")),
                         Width = 32,
                         Height = 32,
                         ToolTip = reader["NAME"].ToString(),
@@ -229,12 +229,15 @@ namespace PV_Calculate.View
 
                 // 🟡 نجيب اسم المكان من الإحداثيات
                 string placeName = await GetPlaceNameFromCoordinates(position.Lat, position.Lng);
-                txt_name.Text = "Centrale PV:" + placeName ?? "Inconnu";
+                if(txt_name.Text == "Centrale PV :")
+                { 
+                    txt_name.Text = "Centrale PV :" + placeName ?? "Inconnu";
+                } 
 
                 // 🔵 نرسم الماركر
                 var image = new Image
                 {
-                    Source = new BitmapImage(new Uri("C:\\Users\\Informatics\\Desktop\\PV Calculate\\PV Calculate\\View\\cellule-photovoltaique.png")),
+                    Source = new BitmapImage(new Uri("C:\\Users\\ARC COMPUTER\\Source\\Repos\\PVCalculate\\PV Calculate\\View\\cellule-photovoltaique.png")),
                     Width = 32,
                     Height = 32,
                     ToolTip = $"PV @ {position.Lat:F4}, {position.Lng:F4}",
@@ -318,7 +321,7 @@ namespace PV_Calculate.View
         }
         private async Task<string> GetPlaceNameFromCoordinates(double lat, double lng)
         {
-            string url = $"https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat={lat}&lon={lng}";
+            string url = $"https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat={lat.ToString(CultureInfo.InvariantCulture)}&lon={lng.ToString(CultureInfo.InvariantCulture)}";
 
             using (HttpClient client = new HttpClient())
             {
