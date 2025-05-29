@@ -48,10 +48,28 @@ namespace PV_Calculate.View
                     double longitude = double.Parse(selectedItem.Row["Longitude"].ToString());
                     double latitude = double.Parse(selectedItem.Row["Latitude"].ToString());// أو استخدم اسم العمود بدل [0]
                     bL_Placement_PV.DELETE_PLACEMENT_BY_COORDS(latitude, longitude);
-                    datagrid.ItemsSource = bL_Placement_PV.get_technique_tb().DefaultView; 
+                    datagrid.ItemsSource = bL_Placement_PV.get_liste_centrale().DefaultView; 
                     MessageBox.Show("Le processus de suppression a été effectué avec succès.");
                 }
             }
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            frm_edit_centrale editCentraleWindow = new frm_edit_centrale();
+            editCentraleWindow.listeCentrale = this; // Passer la référence de liste_centrale à frm_edit_centrale
+            var selectedItem = datagrid.SelectedItem as DataRowView;
+            int ID = Convert.ToInt32(selectedItem.Row["ID"].ToString());
+            string Nom = selectedItem.Row["Nom"].ToString();
+            string Puissance = selectedItem.Row["Puissance"].ToString();
+            int Code_téchnique = Convert.ToInt32(selectedItem.Row["Code téchnique"].ToString());
+            string Code_bus = selectedItem.Row["Code bus"].ToString();
+            editCentraleWindow.ID = ID;
+            editCentraleWindow.txt_name.Text = Nom;
+            editCentraleWindow.txt_puiisance.Text = Puissance;
+            editCentraleWindow.cmb_technique.SelectedValue = Code_téchnique; // Assurez-vous que cmb_technique est correctement peuplé
+            editCentraleWindow.cmb_bus.SelectedValue = Code_bus; // Assurez-vous que cmb_bus est correctement peuplé
+            editCentraleWindow.ShowDialog();
         }
     }
 }

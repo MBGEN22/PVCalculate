@@ -109,3 +109,21 @@ SELECT [ID]
   FROM [dbo].[TB_PLACEMENT_CENTRALE_PV] 
 GO
 
+--29/052025 labo 106 
+ create PROC edit_centrale_info
+ @ID int
+,@NAME		nvarchar(50) 
+,@puissance		float
+,@technique_id	int
+,@id_bus		nvarchar(50)
+AS
+UPDATE [dbo].[TB_PLACEMENT_CENTRALE_PV]
+   SET [NAME] = @NAME
+      ,[Latitude] = [Latitude]
+      ,[Longitude] =[Longitude]
+      ,[technique_id] = @technique_id
+      ,[puissance] = @puissance
+      ,[id_bus] = @id_bus
+ WHERE ID = @ID
+GO
+-----------------------------------------------------

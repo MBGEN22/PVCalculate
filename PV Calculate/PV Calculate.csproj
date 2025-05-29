@@ -291,6 +291,9 @@
     <Compile Include="View\frm_add_Technique.xaml.cs">
       <DependentUpon>frm_add_Technique.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\frm_edit_centrale.xaml.cs">
+      <DependentUpon>frm_edit_centrale.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\liste_centrale.xaml.cs">
       <DependentUpon>liste_centrale.xaml</DependentUpon>
     </Compile>
@@ -324,6 +327,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\frm_add_Technique.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\frm_edit_centrale.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

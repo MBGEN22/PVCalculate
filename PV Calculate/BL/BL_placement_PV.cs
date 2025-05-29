@@ -114,6 +114,31 @@ namespace PV_Calculate.BL
                 }
             }
         }
+        public void edit_centrale_info(
+            int ID ,
+            string NAME, 
+            float puissance,
+            int? technique_id,
+            string id_bus
+        )
+        {
+            daoo = new DAL.DAL();
+            using (daoo.sqlConnection)
+            {
+                daoo.sqlConnection.Open();
+                using (SqlCommand cmd = new SqlCommand("edit_centrale_info", daoo.sqlConnection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ID", ID);
+                    cmd.Parameters.AddWithValue("@NAME", NAME); 
+                    cmd.Parameters.AddWithValue("@puissance", puissance);
+                    cmd.Parameters.AddWithValue("@technique_id", (object)technique_id ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@id_bus", (object)id_bus ?? DBNull.Value);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
         public bool DELETE_PLACEMENT_BY_COORDS(double latitude, double longitude)
         {
             daoo = new DAL.DAL();
