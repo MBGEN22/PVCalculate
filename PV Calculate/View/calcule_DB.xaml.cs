@@ -30,9 +30,10 @@ namespace PV_Calculate.View
     /// </summary>
     public partial class calcule_DB : UserControl
     {
+        DataTable sum_tb = new DataTable();
         private List<double> G_array = new List<double>();
         private List<double> Temp_array = new List<double>();
-        BL.BL_placement_PV class_placement = new BL.BL_placement_PV();
+        BL.BL_placement_PV class_placement = new BL.BL_placement_PV(); 
         public calcule_DB()
         {
             InitializeComponent();
@@ -298,6 +299,9 @@ namespace PV_Calculate.View
                 sumValues.Add(sum/1e6);
             }
 
+             sum_tb = convert_to_table(sumValues);
+
+            this.dgsomme.ItemsSource = sum_tb.DefaultView;
             // إعداد السلسلة
             var sumSeries = new LineSeries
             {
@@ -326,7 +330,27 @@ namespace PV_Calculate.View
                 Title = "Production (KW)"
             });
         }
+        private DataTable convert_to_table(List<double> sumValues)
+        {
+            DataTable table = new DataTable();
 
+            // إنشاء الأعمدة من 0 إلى 23
+            for (int i = 1; i < 25; i++)
+            {
+                table.Columns.Add(i.ToString(), typeof(double));
+            }
+
+            // إنشاء صف واحد وإضافة القيم إليه
+            DataRow row = table.NewRow();
+            for (int i = 0; i < 24; i++)
+            {
+                row[i] = sumValues[i];
+            }
+
+            table.Rows.Add(row);
+            return table;
+
+        }
         public class MeteoData
         {
             public List<double> Radiation { get; set; }
@@ -338,5 +362,26 @@ namespace PV_Calculate.View
             public double Ptotal { get; set; }
         }
 
+        private void Buttoxn_Click(object sender, RoutedEventArgs e)
+        {
+            if (sum_tb.Rows.Count == 0)
+            {
+                MessageBox.Show("Aucune donnée à modifier. Il faut d'abord cliquer sur le bouton Calculer.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else if (MessageBox.Show("Êtes-vous sûr de vouloir modifier la production ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                for (int i = 0; i < 24; i++)
+                {
+                    int heure = i + 1;
+                    float production = float.Parse(sum_tb.Rows[0][i].ToString());
+
+                    class_placement.edit_pv(heure, production);
+                }
+                MessageBox.Show("La production a été modifiée avec succès", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+               
+
+        }
     }
 }

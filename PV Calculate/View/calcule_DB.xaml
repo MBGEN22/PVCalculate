@@ -2,6 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"  
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PV_Calculate.View"
@@ -25,7 +26,7 @@
                     <!-- Tableau horaire (24h) -->
                     <DataGrid x:Name="dgProduction24h" AutoGenerateColumns="True" Grid.Row="0"    
                                     CanUserAddRows="False"
-                                    Margin="20,20,100,20"
+                                    Margin="20,20,140,40"
                                     FontSize="14"
                                     HeadersVisibility="Column"
                                     IsReadOnly="True"
@@ -33,7 +34,7 @@
                                     VerticalGridLinesBrush="#DDDDDD"
                                     HorizontalGridLinesBrush="#DDDDDD"
                                     RowBackground="#FAFAFA"
-                                    AlternatingRowBackground="#F0F8FF" Grid.ColumnSpan="2">
+                                    AlternatingRowBackground="#F0F8FF">
 
                         <DataGrid.ColumnHeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
@@ -74,7 +75,7 @@
                     </lvc:CartesianChart>
 
 
-                    <Button Grid.Row="0" Content="Calculer" Margin="0,20,10,151" Click="Button_Click" Background="#FF4BDA4D" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="85">
+                    <Button Grid.Row="0" Content="Calculer" Margin="0,20,10,151" Click="Button_Click" Background="#FF4BDA4D" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="125">
                         <Button.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -84,41 +85,88 @@
                             </TransformGroup>
                         </Button.RenderTransform>
                     </Button>
+                    <Button Margin="20,165,0,0" Style="{StaticResource gridRemoveButton}" Background="#FF20A8D6" BorderBrush="#FF207FD6" Height="32" Click="Buttoxn_Click" HorizontalAlignment="Left" Width="634" VerticalAlignment="Top">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="ContentSave"  />
+                            <TextBlock Text="Mise à jour de la production dans la base de données" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="14" />
+                        </StackPanel>
+                    </Button>
                 </Grid>
             </TabItem>
 
             <!-- Tab 2: Comparaison Multi-Centrales -->
-            <TabItem Header="Resultas">
-                <DataGrid x:Name="dgresult" AutoGenerateColumns="True" Grid.Row="0"    
-                CanUserAddRows="False"
-                Margin="20"
-                FontSize="14"
-                HeadersVisibility="Column"
-                IsReadOnly="True"
-                SelectionUnit="Cell"
-                VerticalGridLinesBrush="#DDDDDD"
-                HorizontalGridLinesBrush="#DDDDDD"
-                RowBackground="#FAFAFA"
-                AlternatingRowBackground="#F0F8FF">
+            <TabItem Header="Resultas" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid x:Name="dgresult" AutoGenerateColumns="True" Grid.Row="0"    
+                        CanUserAddRows="False"
+                        Margin="20"
+                        FontSize="14"
+                        HeadersVisibility="Column"
+                        IsReadOnly="True"
+                        SelectionUnit="Cell"
+                        VerticalGridLinesBrush="#DDDDDD"
+                        HorizontalGridLinesBrush="#DDDDDD"
+                        RowBackground="#FAFAFA"
+                        AlternatingRowBackground="#F0F8FF">
 
-                    <DataGrid.ColumnHeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="Background" Value="#0078D7"/>
-                            <Setter Property="Foreground" Value="White"/>
-                            <Setter Property="FontWeight" Value="Bold"/>
-                            <Setter Property="Padding" Value="10,5"/>
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGrid.ColumnHeaderStyle>
-                    <DataGrid.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <Setter Property="Padding" Value="10,5"/>
-                            <Setter Property="HorizontalAlignment" Value="Right"/>
-                            <Setter Property="TextBlock.TextAlignment" Value="Right"/>
-                        </Style>
-                    </DataGrid.CellStyle>
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#0078D7"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="Padding" Value="10,5"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Padding" Value="10,5"/>
+                                <Setter Property="HorizontalAlignment" Value="Right"/>
+                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                            </Style>
+                        </DataGrid.CellStyle>
 
-                </DataGrid>
+                    </DataGrid>
+                    <StackPanel Grid.Row="1">
+                        <TextBlock Text="la somme de la production est de :"  Margin="20,10,0,0" FontSize="16" FontWeight="Bold"/>
+                        <DataGrid x:Name="dgsomme" AutoGenerateColumns="True"  
+                        CanUserAddRows="False"
+                        Margin="20"
+                        FontSize="14"
+                        HeadersVisibility="Column"
+                        IsReadOnly="True"
+                        SelectionUnit="Cell"
+                        VerticalGridLinesBrush="#DDDDDD"
+                        HorizontalGridLinesBrush="#DDDDDD"
+                        RowBackground="#FAFAFA"
+                        AlternatingRowBackground="#F0F8FF">
+
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="#0078D7"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="Padding" Value="10,5"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                            <DataGrid.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Padding" Value="10,5"/>
+                                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                                </Style>
+                            </DataGrid.CellStyle>
+
+                        </DataGrid>
+
+
+                    </StackPanel>
+                </Grid> 
             </TabItem>
         </TabControl>
     </Grid>

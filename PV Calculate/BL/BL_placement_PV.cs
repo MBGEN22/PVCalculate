@@ -114,6 +114,24 @@ namespace PV_Calculate.BL
                 }
             }
         }
+        public void edit_pv(
+            int HEURES,
+            float PRODUCTION
+        )
+        {
+            daoo = new DAL.DAL();
+            using (daoo.sqlConnection)
+            {
+                daoo.sqlConnection.Open();
+                using (SqlCommand cmd = new SqlCommand("edit_pv", daoo.sqlConnection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@HEURES", HEURES);
+                    cmd.Parameters.AddWithValue("@PRODUCTION", PRODUCTION);  
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
         public void edit_centrale_info(
             int ID ,
             string NAME, 
